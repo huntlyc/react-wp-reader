@@ -1,20 +1,34 @@
-import React, { Component } from 'react';
-export class AppContent extends Component {
-    constructor(props) {
+import React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import LatestBlogPosts from './LatestBlogPosts';
+import Post from './Post';
+
+
+export class AppContent extends React.Component {
+    constructor(props){
         super(props);
         this.state = {
-            greeting: 'World'
-        };
+            postID: null
+        }
+        this.endpoint = this.props.endpoint;
+        this.handleLoadPost = this.handleLoadPost.bind(this);
     }
-    componentDidMount() {
+
+    handleLoadPost(postID){
         this.setState({
-            greeting: 'Huntly'
-        });
+            postID: postID
+        })
     }
+
     render() {
-        return (<main>
-            <h1>Hello, {this.state.greeting}</h1>
-        </main>);
+        return (
+            <Router>
+                <main>
+                    <Route exact path="/" render={(props) =>  <LatestBlogPosts {...props} endpoint={this.endpoint} handleLoadPost={this.handleLoadPost} /> } />
+                    <Route path="/:slug" render={(props) => <Post {...props} endpoint={this.endpoint} />} />
+                </main>
+            </Router>
+        );
     }
 }
 
