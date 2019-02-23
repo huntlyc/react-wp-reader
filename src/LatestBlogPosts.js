@@ -9,9 +9,7 @@ class LatestBlogPosts extends React.Component {
             fetchingPosts: false,
             encounteredError: false
 
-        }
-        
-        this.handleLoadPost = this.handleLoadPost.bind(this);
+        }   
     }
 
     
@@ -44,7 +42,7 @@ class LatestBlogPosts extends React.Component {
     renderPostSummaries() {
         const posts = this.state.posts.map((post, index) => {
             return (
-                <PostSummary key={index} post={post} handleLoadPost={this.handleLoadPost} />
+                <PostSummary key={index} post={post} />
             )
         });
 
@@ -56,10 +54,6 @@ class LatestBlogPosts extends React.Component {
     }
 
 
-    handleLoadPost(e, postID){
-        this.props.handleLoadPost(e, postID); //Pass up
-    }
-    
 
     render() {
         let noPostsContent = '';
@@ -108,10 +102,6 @@ class PostSummary extends React.Component{
         });
     }
 
-    handleReadMore = (e) => {
-        e.preventDefault();
-        this.props.handleLoadPost(this.props.post.id)
-    }
 
     render(){
         const post = this.props.post;

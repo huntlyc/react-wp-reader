@@ -11,20 +11,15 @@ export class AppContent extends React.Component {
             postID: null
         }
         this.endpoint = this.props.endpoint;
-        this.handleLoadPost = this.handleLoadPost.bind(this);
     }
 
-    handleLoadPost(postID){
-        this.setState({
-            postID: postID
-        })
-    }
+    
 
     render() {
         return (
             <Router>
                 <main>
-                    <Route exact path="/" render={(props) =>  <LatestBlogPosts {...props} endpoint={this.endpoint} handleLoadPost={this.handleLoadPost} /> } />
+                    <Route exact path="/" render={(props) =>  <LatestBlogPosts {...props} endpoint={this.endpoint}  /> } />
                     <Route path="/:slug" render={(props) => <Post {...props} endpoint={this.endpoint} />} />
                 </main>
             </Router>

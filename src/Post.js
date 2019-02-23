@@ -41,11 +41,6 @@ class Post extends React.Component{
             });
     }
 
-    backToMain = (e) =>{
-        e.preventDefault();
-        this.props.handleLoadPost(null);
-    }
-
     render(){
 
         let content;
