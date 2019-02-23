@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { AppContent } from './AppContent';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <React.Fragment>
+          <header>
+              <h1>WP API test</h1>
+              <p>Pulls from strutdigital.co.uk</p>
+          </header>
+          <AppContent/>
+          <footer>Made with <span className="heart">&#9829;</span> by <a href="https://www.huntlycameron.co.uk/" rel="nooper" target="_blank">huntlyc</a></footer>
+      </React.Fragment>
     );
   }
 }
