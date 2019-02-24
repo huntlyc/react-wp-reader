@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React WP Reader
+===
+
+Give it a WordPress url (that has the rest API available for posts) and it will read the latest posts
+
+_This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)._
 
 ## Available Scripts
 
