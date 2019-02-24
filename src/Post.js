@@ -48,6 +48,7 @@ class Post extends React.Component{
         let noContentClass = ''
         //Check if fetching 
         if (this.state.fetchingPost) {
+            noContentClass = 'text-center highlight';
             noContent = "Fetching post" + String.fromCharCode(8230);
         }
 
@@ -60,14 +61,14 @@ class Post extends React.Component{
         if (noContent !== '') {
             content = <p className={noContentClass}>{noContent}</p>
         } else {
-            content = <React.Fragment><h1 dangerouslySetInnerHTML={{__html: this.state.title }} /><article dangerouslySetInnerHTML={{__html: this.state.content }} /></React.Fragment>
+            content = <React.Fragment><h1 dangerouslySetInnerHTML={{__html: this.state.title }} /><div className="articleContent" dangerouslySetInnerHTML={{__html: this.state.content }} /></React.Fragment>
         }
 
         return (
-            <React.Fragment>
+            <article>
                 {content}
-                <Link to="/">Back to Main</Link>
-            </React.Fragment>
+                <Link to="/" className="btn">Back to posts</Link>
+            </article>
         )
         
     }

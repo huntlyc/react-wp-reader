@@ -1,7 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:700');
+
+:root{
+    --hotpink: hotpink;
+    --hotpinkdark: #cc528f;
+    --white: #fff;
+    --blue: skyblue;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -9,4 +23,173 @@ body {
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+header{
+    text-align: center;
+    background-color: var(--hotpink);
+    padding: 3rem;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Roboto', sans-serif;
+}
+
+header h1{
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+header p{
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 0.2rem;
+}
+
+header form{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+header form label,
+header form input,
+header form button{
+    font-size: 1em;
+    padding: 0.3em 0.5em;
+    line-height: 1;
+}
+header form label{
+    background-color: var(--white);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 0.7em;
+}
+header form input{
+    flex-grow: 1;
+}
+
+header form input,
+header form button{
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+}
+
+header form button{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-right: 0.7em;
+    cursor: pointer;
+}
+
+header form button{
+    background-color: #ff95b9;
+}
+
+p.text-center.highlight{
+    text-align: center;
+    padding: 3rem;
+}
+
+ul.latest-posts{
+    list-style-type: none;
+    padding: 2rem;   
+}
+
+ul.latest-posts  li > a{
+    font-size: 1.5rem;
+    color: var(--hotpink);
+    text-decoration: none;
+    transition: color 0.1s ease;
+}
+
+
+ul.latest-posts li > a:focus
+{
+    display: inline-block;
+    background-color: rgba(255,105,180,0.5);
+    color: #555;
+    padding: o.3rem 0;
+    
+}
+
+ul.latest-posts li > a:hover{
+    color: var(--hotpinkdark);
+}
+
+.summary{
+    margin: 0.5rem 0.5rem 0.5rem 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-left: 1px solid #eee;
+}
+
+a.btn{
+    font-size: 1rem;
+    display: inline-block;
+    margin: 1.3rem 0 0;
+    padding: 0.6rem 1rem;
+    color: var(--white);
+    background-color: var(--hotpinkdark);
+    text-decoration: none;
+    transition: background-color 0.1s ease;
+}
+
+a.btn:hover{
+    background-color: var(--hotpink);
+}
+
+footer{
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    /* background-color: var(--hotpink); */
+}
+
+footer::before{
+    position: relative;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%); 
+    display: block;
+    content: '';
+    max-width: 30%;
+    border-top: 1px solid #ccc;
+}
+
+main{
+    min-height: 70vh;
+}
+
+article{
+    max-width: calc(100% - 1rem);
+    padding: 1rem;
+
+}
+
+article > h1{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+article > h1::after{
+    position: absolute;
+    content: '';
+    left: 0.5rem;
+    bottom: 0.1rem;
+    display: block;
+    width: 10rem;
+    border-bottom: 1px solid #eee;
+}
+
+footer span.heart{
+    color: red
 }

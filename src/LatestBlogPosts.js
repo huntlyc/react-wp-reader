@@ -61,6 +61,7 @@ class LatestBlogPosts extends React.Component {
 
         //Check if fetching 
         if (this.state.fetchingPosts) {
+            noPostsClassName='text-center highlight';
             noPostsContent = "Fetching posts" + String.fromCharCode(8230);
         }
 
@@ -109,10 +110,10 @@ class PostSummary extends React.Component{
             <li key={post.id}>
                 <a href={post.link} onClick={this.toggleSummary} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
                 {this.state.isSummaryVisible && 
-                    <React.Fragment>
-                        <p dangerouslySetInnerHTML={{__html: post.excerpt.rendered }}/> 
+                    <div className="summary">
+                        <div className="excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered }}/> 
                         <Link to={post.slug} className="btn">Read More</Link>
-                    </React.Fragment>
+                    </div>
                 }
             </li>
         )
