@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+
 class LatestBlogPosts extends React.Component {
     constructor(props) {
         super(props);
@@ -130,7 +132,9 @@ class PostSummary extends React.Component{
                 {this.state.isSummaryVisible && 
                     <div className="summary">
                         <div className="excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered }}/> 
-                        <a href="#viewpost" className="btn" onClick={this.handleViewPost} >Read More</a>
+                        <Link to={post.slug} className="btn">Read More</Link>
+                        {/* <a href="#viewpost" className="btn" onClick={this.handleViewPost} >Read More</a> */}
+
                     </div>
                 }
             </li>

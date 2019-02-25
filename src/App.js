@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
 import LatestBlogPosts from './LatestBlogPosts';
 import Post from './Post';
 
@@ -12,6 +14,16 @@ export class App extends React.Component {
         this.state = {
             endpoint: '',
             curPostSlug: null
+        }
+
+        this.lsKey = 'huntlyc-react-wp-reader';
+    }
+
+    componentDidMount(){
+        if(localStorage.getItem(this.lsKey)){
+            const savedState = JSON.parse(localStorage.getItem(this.lsKey));
+
+            this.setState(savedState);
         }
     }
 
@@ -29,6 +41,13 @@ export class App extends React.Component {
                 endpoint: userEndpoint,
                 curPostSlug: null, //reset curPostSlug to trigger <LatestBlogPosts/> 
             });
+    
+            localStorage.setItem(
+                this.lsKey, 
+                JSON.stringify({
+                    "endpoint": userEndpoint
+                })
+            );
         }
 
     }
@@ -38,7 +57,7 @@ export class App extends React.Component {
 
             <form action="/" className="endpoint-form" onSubmit={this.updateEndpoint}>
                 <label htmlFor="endpoint">Wordpress URL:</label>
-                <input id="endpoint" name="endpoint" type="url" placeholder="https://www.huntlycameron.co.uk" /><button>Change</button>
+                <input id="endpoint" name="endpoint" type="url" placeholder="https://www.huntlycameron.co.uk" defaultValue={this.state.endpoint}/><button>Change</button>
             </form>
         )   
     }
@@ -50,20 +69,22 @@ export class App extends React.Component {
     }
 
     renderInnerContent = () => {
-
-        //If no endpoint show start msg
         if(this.state.endpoint === ''){
             return <p className="text-center highlight">Please enter a URL to start!</p>
         }
 
-        //If no slug, show latest post list
-        if(this.state.curPostSlug === null){
-            return <LatestBlogPosts endpoint={this.state.endpoint} handleViewPost={this.handleViewPost} />
-        }else{
-            return <Post endpoint={this.state.endpoint} slug={this.state.curPostSlug} handleViewPost={this.handleViewPost} />
-        }
-
+        return(
+            <Router>
+                <div>
+                    <Route exact path="/" render={(props) =>  <LatestBlogPosts {...props} endpoint={this.state.endpoint}  /> } />
+                    <Route path="/:slug" render={(props) => <Post {...props} endpoint={this.state.endpoint} />} />
+                </div>
+            </Router>
+        )
     }
+
+
+
     render() {
         
         return (

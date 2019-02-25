@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import {Link} from 'react-router-dom';
+
 class Post extends React.Component{
     constructor(props){
         super(props);
@@ -14,7 +16,7 @@ class Post extends React.Component{
 
     componentDidMount(){
         axios
-            .get(this.props.endpoint + '/wp-json/wp/v2/posts/?slug=' + this.props.slug)
+            .get(this.props.endpoint + '/wp-json/wp/v2/posts/?slug=' + this.props.match.params.slug)
             .then((response) => {
                 if (response && response.status === 200 && response.data) {
                     const data = response.data[0];
@@ -66,7 +68,8 @@ class Post extends React.Component{
         return (
             <article>
                 {content}
-                <a href="#viewall" onClick={this.backToMain} className="btn">Back to posts</a>
+                {/* <a href="#viewall" onClick={this.backToMain} className="btn">Back to posts</a> */}
+                <Link to="/" className="btn">Back to posts</Link>
             </article>
         )
         
