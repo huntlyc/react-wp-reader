@@ -1,23 +1,34 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom'
 class LatestBlogPosts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             posts: [],
-            fetchingPosts: false,
+            fetchingPosts: true,
             encounteredError: false
 
         }   
+
+        
     }
 
     
     componentDidMount() {
-        this.setState({
-            fetchingPosts: true
-        });
+        this.getLatestPosts();
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot){
+        //Only request new posts if endpoint has changed
+        if(prevProps.endpoint !== this.props.endpoint){
+            this.setState({
+                fetchingPosts: true,
+            })
+            this.getLatestPosts();
+        }
+    }
+
+    getLatestPosts(){
         axios
             .get( this.props.endpoint + '/wp-json/wp/v2/posts/')
             .then((response) => {
@@ -38,11 +49,15 @@ class LatestBlogPosts extends React.Component {
             });
     }
 
+    handleViewPost = (slug) =>{
+        this.props.handleViewPost(slug);
+    }
+
 
     renderPostSummaries() {
         const posts = this.state.posts.map((post, index) => {
             return (
-                <PostSummary key={index} post={post} />
+                <PostSummary key={post.slug} post={post} handleViewPost={this.props.handleViewPost} />
             )
         });
 
@@ -103,16 +118,19 @@ class PostSummary extends React.Component{
         });
     }
 
-
+    handleViewPost = (e) =>{
+        e.preventDefault();
+        this.props.handleViewPost(this.props.post.slug);
+    }
     render(){
         const post = this.props.post;
         return(
-            <li key={post.id}>
+            <li>
                 <a href={post.link} onClick={this.toggleSummary} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
                 {this.state.isSummaryVisible && 
                     <div className="summary">
                         <div className="excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered }}/> 
-                        <Link to={post.slug} className="btn">Read More</Link>
+                        <a href="#viewpost" className="btn" onClick={this.handleViewPost} >Read More</a>
                     </div>
                 }
             </li>

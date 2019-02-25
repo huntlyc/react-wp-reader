@@ -1,26 +1,20 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 
 class Post extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            fetchingPost: false,
+            fetchingPost: true,
             encounteredError: false,
             title: null,
             content: null
         }
-        this.postSlug = this.props.match.params.slug;
     }
 
     componentDidMount(){
-        this.setState({
-            fetchingPost: true
-        });
-
         axios
-            .get(this.props.endpoint + '/wp-json/wp/v2/posts/?slug=' + this.postSlug)
+            .get(this.props.endpoint + '/wp-json/wp/v2/posts/?slug=' + this.props.slug)
             .then((response) => {
                 if (response && response.status === 200 && response.data) {
                     const data = response.data[0];
@@ -39,6 +33,11 @@ class Post extends React.Component{
                     fetchingPost: false
                 })
             });
+    }
+
+    backToMain = (e) =>{
+        e.preventDefault();
+        this.props.handleViewPost(null);
     }
 
     render(){
@@ -67,7 +66,7 @@ class Post extends React.Component{
         return (
             <article>
                 {content}
-                <Link to="/" className="btn">Back to posts</Link>
+                <a href="#viewall" onClick={this.backToMain} className="btn">Back to posts</a>
             </article>
         )
         
